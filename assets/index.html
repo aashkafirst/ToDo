@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="/home/aashka/Desktop/practice/toDo/bower_components/angularjs-datetime-picker/angularjs-datetime-picker.css" />
+  <script src ="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="/home/aashka/Desktop/practice/toDo/bower_components/angularjs-datetime-picker/angularjs-datetime-picker.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/constants.js"></script>
+  <title>ToDo</title>
+</head>
+
+<body ng-app="ToDo">
+  <div ng-controller="ToDoCtrl" >
+		<h2>A Todo App</h2>
+			<div>
+				<form class="form-horizontal">
+						<input type="text" ng-model="formTodoText" required>
+						Deadline:<input placeholder="select" ng-model="deadline" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" required/>
+						<button class="button" ng-click="add()">Add</button>
+						<!--<button class="button" ng-click="clearCompleted()" ng-model = "todo">Delete</button>-->
+				</form>
+			</div>
+			<div ng-if="toDos.length">
+				<h4>Tasks:</h4>
+					<input type="search" ng-model="searchBox" placeholder="Search here">
+					<ul>
+						<li id={{toDo.name}} ng-repeat="toDo in toDos | filter:searchBox">
+							<input type="checkbox"  ng-model="toDo.done" ng-click="done(toDo)">
+							<span class="done-{{toDo.done}}">
+								{{toDo.name}}
+							</span>&nbsp;&nbsp;
+							<span class="done-{{toDo.done}}">
+								{{toDo.deadline}}
+							</span>
+							&nbsp;&nbsp;&nbsp;
+							<button class="edit" ng-click="edit(toDo)">Edit</button>
+							<button class="delete" ng-click="delete(toDo)">Delete</button>
+						</li>
+					</ul>
+			</div>
+			<div ng-if="!toDos.length || !toDos">
+			<h4>No tasks</h4>
+			</div>
+  </div>
+</body>
+</html>

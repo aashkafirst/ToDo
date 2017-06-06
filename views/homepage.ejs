@@ -1,0 +1,47 @@
+<div ng-controller="ToDoCtrl">
+    <h2>A Todo App</h2>
+      <div>
+        <form class="form-horizontal">
+            <input type="text" ng-model="formTodoText" required>
+            Deadline:<input placeholder="select" ng-model="deadline" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" required/>
+            <button class="button" ng-click="add()">Add</button>
+            <!--<button class="button" ng-click="clearCompleted()" ng-model = "todo">Delete</button>-->
+        </form>
+      </div>
+      <div ng-if="toDos.length">
+        <h4>Remaining Tasks:</h4>
+          <input type="search" ng-model="searchBox" placeholder="Search here">
+          <ul>
+            <li ng-hide="toDo.done" id={{toDo.name}} ng-repeat="toDo in toDos | filter:searchBox | orderBy:'deadline'">
+              <input type="checkbox"  ng-model="toDo.done" ng-click="done(toDo)">
+              <span class="done-{{toDo.done}}" dl-enter-key="editName(toDo);" contenteditable="true">
+                {{toDo.name}}
+              </span>&nbsp;&nbsp;
+              <span class="done-{{toDo.done}}" dl-enter-key="editDeadline(toDo);">
+                {{toDo.deadline}}
+              </span>
+              &nbsp;&nbsp;&nbsp;
+              <!--<button class="edit" ng-click="edit(toDo)">Edit</button>-->
+              <button class="delete" ng-click="delete(toDo)">Delete</button>
+            </li>
+          </ul>
+          <h4>Completed Tasks:</h4>
+          <ul>
+            <li ng-hide="!toDo.done" id={{toDo.name}} ng-repeat="toDo in toDos | filter:searchBox | orderBy:'deadline'">
+              <input type="checkbox"  ng-model="toDo.done" ng-click="done(toDo)">
+              <span class="done-{{toDo.done}}" dl-enter-key="editName(toDo);" contenteditable="true">
+                {{toDo.name}}
+              </span>&nbsp;&nbsp;
+              <span class="done-{{toDo.done}}" dl-enter-key="editDeadline(toDo);">
+                {{toDo.deadline}}
+              </span>
+              &nbsp;&nbsp;&nbsp;
+              <!--<button class="edit" ng-click="edit(toDo)">Edit</button>-->
+              <button class="delete" ng-click="delete(toDo)">Delete</button>
+            </li>
+          </ul>
+      </div>
+      <div ng-if="!toDos.length || !toDos">
+      <h4>No tasks</h4>
+      </div>
+  </div>
